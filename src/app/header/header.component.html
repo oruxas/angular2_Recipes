@@ -1,0 +1,36 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">
+                Recipees
+            </a>
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainNavbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="nav navbar-nav">
+                <li> <a href="#" (click)="onSelect('recipe')">Recipes</a></li>
+                <li> <a href="#" (click)="onSelect('shopping-list')">Shopping List</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown" appDropdown>
+                    <a href="#" class="dropdown-toggle" role="button">manage data <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"> Save Data</a></li>
+                        <li><a href="#"> Fetch Data</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+</nav>
