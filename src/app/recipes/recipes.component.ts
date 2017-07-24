@@ -12,20 +12,21 @@ import {RecipeService} from './recipe.service';
 })
 export class RecipesComponent implements OnInit {
 
-  selectedRecipe: Recipe;
+  //selectedRecipe: Recipe;
 
   //here we want to listen if we have recipe selected  
   //since using provider it uses same instance of service
   constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
-    this.recipeService.recipeSelected
-      .subscribe(
-        //recipe passed from event
-        (recipe: Recipe) =>{
-          this.selectedRecipe = recipe;
-        }
-        );
+    //not using anymore
+    // this.recipeService.recipeSelected
+    //   .subscribe(
+    //     //recipe passed from event
+    //     (recipe: Recipe) =>{
+    //       this.selectedRecipe = recipe;
+    //     }
+    // );
   }
 
 }

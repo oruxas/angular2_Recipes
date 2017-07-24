@@ -1,7 +1,7 @@
 import { Component, OnInit, Input/*, EventEmitter, Output*/ } from '@angular/core';
 
 import {Recipe} from '../../recipe.model';
-import {RecipeService} from '../../recipe.service';
+//import {RecipeService} from '../../recipe.service';
 
 @Component({
   selector: 'app-recipe-item',
@@ -11,17 +11,18 @@ import {RecipeService} from '../../recipe.service';
 export class RecipeItemComponent implements OnInit {
   @Input() recipe: Recipe;  //input to get from outside. allows to bind this component property from outside
   //@Output() recipeSelected = new EventEmitter<void>(); //to listen for this event from outside
-
+  @Input() index: number; //property bound from recipe-list component thus @input
 
   //property injection
-  constructor(private recipeService: RecipeService) { }
+  //constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
   }
 
-  onSelected(){
-    //this.recipeSelected.emit();
-    this.recipeService.recipeSelected.emit(this.recipe);
-  }
+  //unused anymore
+  // onSelected(){
+  //   //this.recipeSelected.emit();
+  //   this.recipeService.recipeSelected.emit(this.recipe);
+  // }
 
 }

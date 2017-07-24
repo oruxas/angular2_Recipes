@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-    <button class="btn btn-success">New Recipe</button>
+    <button class="btn btn-success" (click)="onNewRecipe()">New Recipe</button>
   </div>
 </div>
 <hr>
@@ -17,8 +17,9 @@
 
     <!--with services no more event listener-->
     <app-recipe-item
-    *ngFor="let recipeElement of recipes"
-    [recipe]="recipeElement">
+    *ngFor="let recipeElement of recipes; let i = index"
+    [recipe]="recipeElement"
+    [index]="i">
     <!--recipe in square brackets is property in component we're placing this on-->
     <!--Need to go one more level up from here-->
     </app-recipe-item>

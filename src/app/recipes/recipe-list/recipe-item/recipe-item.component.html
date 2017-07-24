@@ -1,7 +1,9 @@
+<!-- (click)="onSelected()" remowed from a tag cuz not using anymore-->
 <a 
-      href="#" 
+      style="cursor: pointer;"
+      [routerLink]="[index]"
+      routerLinkActive="active"
       class="list-group-item clearfix" 
-      (click)="onSelected()"
       >
       <div class="pull-left">
           <h4 class="list-group-item-headng">{{recipe.name}}</h4>
