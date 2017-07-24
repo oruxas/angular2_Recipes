@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
-import { FormGroup, FormControl, FormArray } from "@angular/forms";
+import { FormGroup, FormControl, FormArray, Validators } from "@angular/forms";
 
 import {RecipeService } from "../recipe.service";
+import {Recipe} from '../recipe.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -29,8 +30,34 @@ export class RecipeEditComponent implements OnInit {
     )
   }
 
-  onSubmmit(){
-    console.log(this.recipeForm);
+  onSubmit(){
+    
+    // const newRecipe = new Recipe(
+    //                         this.recipeForm.value['name'], 
+    //                         this.recipeForm.value['description'],
+    //                         this.recipeForm.value['imagePath'],
+    //                         this.recipeForm.value['ingredients']);
+    //console.log(this.recipeForm);
+    //since recipeForm.value object should match the same pattern we can skip above declaration
+    if (this.editMode){
+      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+    } else {
+      this.recipeService.addRecipe(this.recipeForm.value);
+    }
+  }
+
+  onAddIngredient(){
+    //add new control to array of controls
+    //it's nown for us it'll be formArray, but not for angular, thus explicitly cast
+    (<FormArray>this.recipeForm.get('ingredients')).push(
+      new FormGroup({
+        'name': new FormControl(null, Validators.required),
+        'amount': new FormControl(null, [
+                  Validators.required,
+                  Validators.pattern(/^[1-9]+[0-9]*$/) 
+               ])
+      }) 
+      );
   }
 
   //important to know if in edit mode cuz then it'll be clear wether to assign init value or not.
@@ -51,17 +78,20 @@ export class RecipeEditComponent implements OnInit {
          for (let ingredient of recipe.ingredients){
            recipeIngredients.push(
              new FormGroup({
-               'name': new FormControl(ingredient.name),
-               'ammount': new FormControl(ingredient.amount)
+               'name': new FormControl(ingredient.name,  Validators.required),
+               'amount': new FormControl(ingredient.amount, [
+                  Validators.required,
+                  Validators.pattern(/^[1-9]+[0-9]*$/) //acts like a factory, thus executing
+               ]) 
              })
            );
          }
        }
     }
     this.recipeForm = new FormGroup({
-      'name': new FormControl(recipeName),
-      'imagePath': new FormControl(recipeImagePath),
-      'description': new FormControl(recipeDescription),
+      'name': new FormControl(recipeName, Validators.required),
+      'imagePath': new FormControl(recipeImagePath, Validators.required),
+      'description': new FormControl(recipeDescription,  Validators.required),
       'ingredients': recipeIngredients
     });
   }
