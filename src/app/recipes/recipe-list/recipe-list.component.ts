@@ -1,22 +1,26 @@
-import { Component, OnInit/*, EventEmitter, Output*/ } from '@angular/core';
+import { Component, OnInit/*, EventEmitter, Output*/, OnDestroy } from '@angular/core';
 
 //import our model
 import {Recipe} from '../recipe.model';
 
 import {RecipeService} from '../recipe.service';
 import { Router, ActivatedRoute } from "@angular/router";
+import { Subscription } from 'rxjs/Subscription';
+
 
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css']
 })
-export class RecipeListComponent implements OnInit {
+export class RecipeListComponent implements OnInit, OnDestroy {
   //@Output() recipeWasSelected = new EventEmitter<Recipe>();
   recipes: Recipe[]; /*= [
     new Recipe('Test recipe', 'this is test', 'http://www.seriouseats.com/recipes/assets_c/2016/05/20160503-fava-carrot-ricotta-salad-recipe-1-thumb-1500xauto-431710.jpg'), //calling constructor
     new Recipe('Another Test recipe', 'this is second test', 'http://www.seriouseats.com/recipes/assets_c/2016/05/20160503-fava-carrot-ricotta-salad-recipe-1-thumb-1500xauto-431710.jpg')
   ];*/
+
+  subscription: Subscription;
 
   constructor(private recipeService: RecipeService,
               private router: Router,
@@ -24,7 +28,7 @@ export class RecipeListComponent implements OnInit {
 
   ngOnInit() {
     //get our recipes
-    this.recipeService.recipesChanged
+   this.subscription = this.recipeService.recipesChanged
       .subscribe(
         (recipes: Recipe[])=>{
           this.recipes = recipes;
@@ -44,5 +48,9 @@ export class RecipeListComponent implements OnInit {
   //   //need to know which was selected
   //   this.recipeWasSelected.emit(recipe); //passing recipe data thus EventEmitter had to have type of Recipe
   // }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
 
 }

@@ -8,7 +8,7 @@ import {RecipeService} from './recipe.service';
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css'],
-  providers: [RecipeService]
+  //providers: [RecipeService] //all the components in this area share the same instance thus after navigation to shopping-list it is destroyed
 })
 export class RecipesComponent implements OnInit {
 
