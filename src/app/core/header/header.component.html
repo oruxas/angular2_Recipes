@@ -24,7 +24,7 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <ng-template [ngIf]="!authService.isAuthenticated()">
+                <ng-template [ngIf]="!isAuthenticated()">
                      <!--Multiple elements in one condition possible to use ng-template + [ngIf]-->
                     <li> <a routerLink="/signup">Register</a></li>
                     <li> <a routerLink="/signin">Log in</a></li>
@@ -33,9 +33,9 @@
                 <li ><a 
                         style="cursor: pointer;" 
                         (click)="onLogout()" 
-                        *ngIf="authService.isAuthenticated()">Log out</a></li>
+                        *ngIf="isAuthenticated()">Log out</a></li>
 
-                <li class="dropdown" appDropdown *ngIf="authService.isAuthenticated()">
+                <li class="dropdown" appDropdown *ngIf="isAuthenticated()">
                     <a style="cursor: pointer;"  class="dropdown-toggle" role="button">manage data <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a style="cursor: pointer;" (click)="onSaveData()"> Save Data</a></li>
